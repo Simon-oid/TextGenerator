@@ -1,0 +1,3 @@
+/home/simon/CLionProjects/TextGenerator/cmake-build-debug/CMakeFiles/TextGenerator.dir
+/home/simon/CLionProjects/TextGenerator/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/simon/CLionProjects/TextGenerator/cmake-build-debug/CMakeFiles/rebuild_cache.dir

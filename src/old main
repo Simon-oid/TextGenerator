@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "frequency_table.h"
+#include "text_generator.h"
+
+void run_single_threaded() {
+    char text[] = "Cosa dicono le previsioni del tempo? Oggi c'era molto caldo!";
+    WordNode *wordNodes = NULL;
+    processText(text, &wordNodes);
+    writeCSV(wordNodes, "output.csv");
+}
+
+void run_multi_process() {
+    // Placeholder for multi-process implementation
+    printf("Multi-process version is not yet implemented.\n");
+}
+
+int main() {
+    int choice;
+    printf("Select version:\n1. Single-threaded\n2. Multi-process\n");
+    scanf("%d", &choice);
+    getchar(); // consume newline character
+
+    switch (choice) {
+        case 1:
+            run_single_threaded();
+        break;
+        case 2:
+            run_multi_process();
+        break;
+        default:
+            printf("Invalid choice.\n");
+        break;
+    }
+    return 0;
+}
