@@ -154,8 +154,10 @@ void writeCSV(WordRelation *wordRelations, const char *filename) {
         currentWord = currentWord->next;
     }
 
-    fclose(file);
+    fflush(file); // Ensure all data is written to the file
+    fclose(file); // Properly close the file
 }
+
 
 void freeFrequencyTable(WordRelation *wordRelations) {
     WordRelation *currentWord = wordRelations;

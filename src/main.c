@@ -2,69 +2,34 @@
 #include <stdlib.h>
 #include "frequency_table.h"
 #include "text_generator.h"
+#include "single_threaded.h"
+#include "multi_process.h"
 
-// Uncomment the following lines to enable testing for each component
-#define TEST_FREQUENCY_TABLE
-//#define TEST_TEXT_GENERATOR
+void processTextAndGenerateFrequencyTable(WordRelation **wordRelations) {
+    printf("Enter text to build frequency table:\n");
+    char text[1024];
+    scanf(" %[^\n]", text);
 
-#ifdef TEST_FREQUENCY_TABLE
-void testProcessText() {
-    char text[] = "Cosa dicono le previsioni del tempo? Previsioni del tempo di oggi: tempo incerto! Previsioni di domani?";
-    WordRelation *wordRelations = NULL;
-    processText(text, &wordRelations);
+    processText(text, wordRelations);
+    writeCSV(*wordRelations, "output.csv");
+    printf("Frequency table written to output.csv successfully.\n");
+}
 
-    // Print the results for verification
-    WordRelation *currentWord = wordRelations;
-    while (currentWord != NULL) {
-        NextWordRelation *currentNext = currentWord->nextWords;
-        while (currentNext != NULL) {
-            printf("%s -> %s: %d\n", currentWord->word, currentNext->word, currentNext->count);
-            currentNext = currentNext->next;
-        }
-        currentWord = currentWord->next;
+void loadFrequencyTableAndGenerateText(WordRelation **wordRelations) {
+    loadFrequencyTableFromCSV("output.csv", wordRelations);
+
+    if (*wordRelations == NULL) {
+        printf("Error: Frequency table not loaded.\n");
+        return;
     }
 
-    // Free the memory
-    freeFrequencyTable(wordRelations);
-}
-
-void testWriteCSV() {
-    char text[] = "Cosa dicono le previsioni del tempo? Previsioni del tempo di oggi: tempo incerto! Previsioni di domani?";
-    WordRelation *wordRelations = NULL;
-    processText(text, &wordRelations);
-    writeCSV(wordRelations, "output.csv");
-    freeFrequencyTable(wordRelations);
+    printf("Enter number of words to generate:\n");
+    int wordCount;
+    scanf("%d", &wordCount);
+    generateRandomText(*wordRelations, wordCount);
 }
 
 int main() {
-    testProcessText();
-    testWriteCSV();
-    return 0;
-}
-#endif
-
-#ifdef TEST_TEXT_GENERATOR
-void testGenerateRandomText() {
-    WordRelation *wordRelations = NULL;
-    loadFrequencyTableFromCSV("output.csv", &wordRelations);
-
-    // Generate random text
-    generateRandomText(wordRelations, 11);
-
-    // Free the memory
-    freeFrequencyTable(wordRelations);
-}
-
-int main() {
-    testGenerateRandomText();
-    return 0;
-}
-#endif
-
-#ifndef TEST_FREQUENCY_TABLE
-#ifndef TEST_TEXT_GENERATOR
-int main() {
-    // Your main program logic
     int option;
     WordRelation *wordRelations = NULL;
 
@@ -72,6 +37,8 @@ int main() {
         printf("\nOptions:\n");
         printf("  1 - Build frequency table\n");
         printf("  2 - Generate random text\n");
+        printf("  3 - Single-threaded version\n");
+        printf("  4 - Multi-process version\n");
         printf("  0 - Exit\n");
         printf("Choose an option: ");
         scanf("%d", &option);
@@ -79,28 +46,19 @@ int main() {
         switch (option) {
             case 0:
                 printf("Exiting...\n");
-                break;
-            case 1: {
-                printf("Enter text to build frequency table:\n");
-                char text[1024];
-                scanf(" %[^\n]", text);
-
-                processText(text, &wordRelations);
-                writeCSV(wordRelations, "output.csv");
-                printf("Frequency table written to output.csv successfully.\n");
-                break;
-            }
-            case 2: {
-                if (wordRelations == NULL) {
-                    printf("Error: Frequency table not built.\n");
-                    break;
-                }
-                printf("Enter number of words to generate:\n");
-                int wordCount;
-                scanf("%d", &wordCount);
-                generateRandomText(wordRelations, wordCount);
-                break;
-            }
+            break;
+            case 1:
+                processTextAndGenerateFrequencyTable(&wordRelations);
+            break;
+            case 2:
+                loadFrequencyTableAndGenerateText(&wordRelations);
+            break;
+            case 3:
+                singleThreadedVersion();
+            break;
+            case 4:
+                multiProcessVersion();
+            break;
             default:
                 printf("Invalid option. Please choose again.\n");
         }
@@ -109,5 +67,4 @@ int main() {
     freeFrequencyTable(wordRelations);
     return 0;
 }
-#endif
-#endif
+

@@ -86,3 +86,26 @@
 - [x] cucinare qualcosa per la generazione del testo (per ora c'e' un problema con la dichiarazione della variabile frequency)
 - [x] fixato il main per fittare i cambiamenti
 - [x] fixati gli header per fittare i cambiamenti
+===================== 25/05/24 ===================
+
+## TODO:
+
+### HIGH PRIO:
+
+- [ ] implementare il programma multi_process:
+    - [ ] bisogna implementare la memoria condivisa per i processi, al momento i puntatori non vengono updatati correttamente dopo l'esecuzione di un processo
+
+
+### LOW PRIO:
+- [x] reworkare il frequency_table.c:
+  - [ ] nel file output.csv le lettere maiuscole sono scritte come maiuscole ma non sono considerate come tali durante la costruzione della frequency_table
+  - [ ] nel file del professore la prima coppia di parola ha sempre come prima parola un "." nella mia versione non avviene (per ora e' in standby)
+---------------------------------------------------
+
+## DONE:
+- [x] implementare il programma single_threaded
+- [x] reworkato il main cosi' da poter scegliere quali funzione/versione del programma runnare
+
+===================== 26/05/24 ===================
+
+Cosa dicono le previsioni del tempo? Previsioni del tempo di oggi: tempo incerto! Previsioni di domani?

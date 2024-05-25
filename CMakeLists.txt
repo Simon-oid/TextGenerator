@@ -14,6 +14,8 @@ add_executable(TextGenerator
         src/text_generator.c
         src/single_threaded.c
         src/multi_process.c
+        include/single_threaded.h
+        include/multi_process.h
 )
 
 
