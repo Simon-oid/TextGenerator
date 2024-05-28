@@ -47,3 +47,5 @@
 50	77	1716922993091454763	TextGenerator	2daefef525e87271
 1	51	1716923031161877431	CMakeFiles/TextGenerator.dir/src/multi_process.c.o	a5673929fbc3091f
 51	77	1716923031185211025	TextGenerator	2daefef525e87271
+1	55	1716923593301741838	CMakeFiles/TextGenerator.dir/src/text_generator.c.o	e8de0e5f9f7642da
+56	82	1716923593328408823	TextGenerator	2daefef525e87271

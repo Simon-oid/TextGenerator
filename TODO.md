@@ -161,8 +161,14 @@
 
 ## DONE:
 - [x] fixato il caricamento per la frequency_table nel programma multiprocesso
+- [x] aggiunti print statements e debugging per errori comuni che possono accadere con l'esecuzion del programma
+- [x] fixare il fatto che durante la generazione delle parole soltanto 2 loop vengono eseguiti
+- [x] fixata la funzione: deserializeWordRelations()
+- [x] fixato il fatto che il programma multiprocess generava ma una frase di n parole identiche
+- [x] implementare il programma multi_process
+- [x] migliorato leggermente il modo in cui le parole vengono scelte dal metodo: getRandomNextWord() (e' ancora visibile un pattern, da fixare)
 
-===================== 29/05/24 ===================
+- ===================== 29/05/24 ===================
 ## TODO:
 
 ### HIGH PRIO:
@@ -177,12 +183,6 @@
 ---------------------------------------------------
 
 ## DONE:
-- [x] fixato il caricamento per la frequency_table nel programma multiprocesso
-- [x] aggiunti print statements e debugging per errori comuni che possono accadere con l'esecuzion del programma
-- [x] fixare il fatto che durante la generazione delle parole soltanto 2 loop vengono eseguiti
-- [x] fixata la funzione: deserializeWordRelations()
-- [x] fixato il fatto che il programma multiprocess generava ma una frase di n parole identiche
-- [x] implementare il programma multi_process
 
 
 
