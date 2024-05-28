@@ -167,9 +167,8 @@
 
 ### HIGH PRIO:
 
-- [ ] implementare il programma multi_process:
-  - [ ] fixare il modo in cui le parole vengono scelte dalla frequency_table, le parole devono essere scelte in base ad un numero randomico che va da 0 a 1, una volta scelto quel numero, si sceglie la parola con la frequenza piu' vicina a quel float.
-  - [ ] fixare il fatto che la corretta next word non viene scleta nella funzione: getRandomNextWord
+  - [ ] fixare il modo in cui le parole vengono scelte dalla frequency_table, le parole devono essere scelte in base ad un numero randomico che va da 0 a 1, una volta scelto quel numero, si sceglie la parola con la frequenza piu' vicina a quel float. (al momento c'ho non avviene e sempre la stessa sequenza di parole viene scelta)
+  - [ ] fare in modo che il programma prenda come input un file txt e non una stringa di parole inserita dall'utente
 
 ### LOW PRIO:
 - [x] reworkare il frequency_table.c:
@@ -181,6 +180,9 @@
 - [x] fixato il caricamento per la frequency_table nel programma multiprocesso
 - [x] aggiunti print statements e debugging per errori comuni che possono accadere con l'esecuzion del programma
 - [x] fixare il fatto che durante la generazione delle parole soltanto 2 loop vengono eseguiti
+- [x] fixata la funzione: deserializeWordRelations()
+- [x] fixato il fatto che il programma multiprocess generava ma una frase di n parole identiche
+- [x] implementare il programma multi_process
 
 
 

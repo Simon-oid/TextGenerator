@@ -216,17 +216,20 @@ WordRelation *deserializeWordRelations(char *shm_ptr) {
     WordRelation *last = NULL;
     while (offset < SHM_SIZE) {
         WordRelation *shm_wordRelation = (WordRelation *)(shm_ptr + offset);
+        if (shm_wordRelation->word[0] == '\0') {  // Check if the word is an empty string
+            break;  // End of WordRelation linked list
+        }
         WordRelation *new_wordRelation = createWordRelation(shm_wordRelation->word);
-        // Copy the data of the WordRelation structure
         memcpy(new_wordRelation, shm_wordRelation, sizeof(WordRelation));
         offset += sizeof(WordRelation);
 
-        // Deserialize the nextWords list
         NextWordRelation *lastNextWord = NULL;
         while (offset < SHM_SIZE) {
             NextWordRelation *shm_nextWord = (NextWordRelation *)(shm_ptr + offset);
+            if (shm_nextWord->word[0] == '\0' || shm_nextWord->frequency < 0) {  // Check if the word is an empty string or frequency is negative
+                break;  // End of NextWordRelation linked list
+            }
             NextWordRelation *new_nextWord = createNextWordRelation(shm_nextWord->word);
-            // Copy the data of the NextWordRelation structure
             memcpy(new_nextWord, shm_nextWord, sizeof(NextWordRelation));
             offset += sizeof(NextWordRelation);
 

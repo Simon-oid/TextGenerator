@@ -54,7 +54,12 @@ void loadFrequencyTableFromCSV(const char *filename, WordRelation **wordRelation
 }
 
 char *getRandomNextWord(WordRelation *wordRelation) {
-    float r = (float)rand() / RAND_MAX; // random float between 0.0 and 1.0
+    float totalFrequency = 0.0;
+    for (NextWordRelation *nwr = wordRelation->nextWords; nwr != NULL; nwr = nwr->next) {
+        totalFrequency += nwr->frequency;
+    }
+
+    float r = (float)rand() / RAND_MAX * totalFrequency; // random float between 0.0 and totalFrequency
 
     float cumulativeFrequency = 0.0;
     NextWordRelation *currentNext = wordRelation->nextWords;
@@ -67,7 +72,6 @@ char *getRandomNextWord(WordRelation *wordRelation) {
     }
     return wordRelation->nextWords ? wordRelation->nextWords->word : NULL;
 }
-
 void generateRandomText(WordRelation *wordRelations, int wordCount) {
     if (wordRelations == NULL) {
         printf("The frequency table is empty.\n");
