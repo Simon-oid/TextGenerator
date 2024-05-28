@@ -5,6 +5,8 @@
 #include "frequency_table.h"
 #include "text_generator.h"
 
+#include <math.h>
+
 #define MAX_LINE_LENGTH 256
 
 void loadFrequencyTableFromCSV(const char *filename, WordRelation **wordRelations) {
@@ -18,7 +20,11 @@ void loadFrequencyTableFromCSV(const char *filename, WordRelation **wordRelation
     while (fgets(line, sizeof(line), file) != NULL) {
         char *word = strtok(line, ",");
         char *nextWord = strtok(NULL, ",");
+
         float frequency = atof(strtok(NULL, ","));
+
+        printf("Word: %s, Next word: %s, Frequency: %f\n", word, nextWord, frequency);
+
 
         WordRelation *current = *wordRelations;
         while (current != NULL && strcmp(current->word, word) != 0) {
@@ -48,12 +54,13 @@ void loadFrequencyTableFromCSV(const char *filename, WordRelation **wordRelation
 }
 
 char *getRandomNextWord(WordRelation *wordRelation) {
-    float r = (float)rand() / RAND_MAX;
-    float cumulativeProbability = 0.0;
+    float r = (float)rand() / RAND_MAX; // random float between 0.0 and 1.0
+
+    float cumulativeFrequency = 0.0;
     NextWordRelation *currentNext = wordRelation->nextWords;
     while (currentNext != NULL) {
-        cumulativeProbability += currentNext->frequency;
-        if (r <= cumulativeProbability) {
+        cumulativeFrequency += currentNext->frequency;
+        if (r <= cumulativeFrequency) {
             return currentNext->word;
         }
         currentNext = currentNext->next;
@@ -67,6 +74,14 @@ void generateRandomText(WordRelation *wordRelations, int wordCount) {
         return;
     }
 
+    FILE *file = fopen("generated_text.txt", "w");
+    if (file == NULL) {
+        perror("Error opening file for writing");
+        return;
+    } else {
+        printf("File opened successfully.\n");
+    }
+
     srand(time(NULL));
 
     WordRelation *currentWord = wordRelations;
@@ -76,6 +91,7 @@ void generateRandomText(WordRelation *wordRelations, int wordCount) {
     }
 
     for (int i = 0; i < wordCount; i++) {
+        printf("Iteration: %d\n", i);
         if (currentWord == NULL) {
             int randomIndex = rand() % totalWords;
             currentWord = wordRelations;
@@ -84,17 +100,30 @@ void generateRandomText(WordRelation *wordRelations, int wordCount) {
             }
         }
 
-        printf("%s", currentWord->word);
+        fprintf(file, "%s", currentWord->word);
+        fflush(file);
+        printf("Writing word to file: %s\n", currentWord->word);
 
         char *nextWord = getRandomNextWord(currentWord);
-        currentWord = wordRelations;
-        while (currentWord != NULL && strcmp(currentWord->word, nextWord) != 0) {
-            currentWord = currentWord->next;
+        WordRelation *temp = wordRelations;
+        while (temp != NULL && strcmp(temp->word, nextWord) != 0) {
+            temp = temp->next;
+        }
+
+        if (temp != NULL) {
+            currentWord = temp;
+        } else {
+            currentWord = wordRelations;
         }
 
         if (i < wordCount - 1) {
+            fprintf(file, " ");
             printf(" ");
         }
     }
+
+    fprintf(file, "\n");
     printf("\n");
+
+    fclose(file);
 }

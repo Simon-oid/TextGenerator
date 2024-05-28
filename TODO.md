@@ -86,6 +86,7 @@
 - [x] cucinare qualcosa per la generazione del testo (per ora c'e' un problema con la dichiarazione della variabile frequency)
 - [x] fixato il main per fittare i cambiamenti
 - [x] fixati gli header per fittare i cambiamenti
+
 ===================== 25/05/24 ===================
 
 ## TODO:
@@ -107,5 +108,82 @@
 - [x] reworkato il main cosi' da poter scegliere quali funzione/versione del programma runnare
 
 ===================== 26/05/24 ===================
+## TODO:
+
+### HIGH PRIO:
+
+- [ ] implementare il programma multi_process:
+  - [ ] bisogna implementare la memoria condivisa per i processi, al momento i puntatori non vengono updatati correttamente dopo l'esecuzione di un processo
+
+
+### LOW PRIO:
+- [x] reworkare il frequency_table.c:
+  - [ ] nel file output.csv le lettere maiuscole sono scritte come maiuscole ma non sono considerate come tali durante la costruzione della frequency_table
+  - [ ] nel file del professore la prima coppia di parola ha sempre come prima parola un "." nella mia versione non avviene (per ora e' in standby)
+---------------------------------------------------
+
+## DONE:
+  - [x] idk
+
+===================== 27/05/24 ===================
+## TODO:
+
+### HIGH PRIO:
+
+- [ ] implementare il programma multi_process:
+  - [ ] bisogna implementare la memoria condivisa per i processi, al momento i puntatori non vengono updatati correttamente dopo l'esecuzione di un processo
+
+
+### LOW PRIO:
+- [x] reworkare il frequency_table.c:
+  - [ ] nel file output.csv le lettere maiuscole sono scritte come maiuscole ma non sono considerate come tali durante la costruzione della frequency_table
+  - [ ] nel file del professore la prima coppia di parola ha sempre come prima parola un "." nella mia versione non avviene (per ora e' in standby)
+---------------------------------------------------
+
+## DONE:
+  - [x] schifo
+
+
+===================== 28/05/24 ===================
+## TODO:
+
+### HIGH PRIO:
+
+- [ ] implementare il programma multi_process:
+  - [ ] bisogna implementare la memoria condivisa per i processi, al momento i puntatori non vengono updatati correttamente dopo l'esecuzione di un processo
+
+
+### LOW PRIO:
+- [x] reworkare il frequency_table.c:
+  - [ ] nel file output.csv le lettere maiuscole sono scritte come maiuscole ma non sono considerate come tali durante la costruzione della frequency_table
+  - [ ] nel file del professore la prima coppia di parola ha sempre come prima parola un "." nella mia versione non avviene (per ora e' in standby)
+---------------------------------------------------
+
+## DONE:
+- [x] fixato il caricamento per la frequency_table nel programma multiprocesso
+
+===================== 29/05/24 ===================
+## TODO:
+
+### HIGH PRIO:
+
+- [ ] implementare il programma multi_process:
+  - [ ] fixare il modo in cui le parole vengono scelte dalla frequency_table, le parole devono essere scelte in base ad un numero randomico che va da 0 a 1, una volta scelto quel numero, si sceglie la parola con la frequenza piu' vicina a quel float.
+  - [ ] fixare il fatto che la corretta next word non viene scleta nella funzione: getRandomNextWord
+
+### LOW PRIO:
+- [x] reworkare il frequency_table.c:
+  - [ ] nel file output.csv le lettere maiuscole sono scritte come maiuscole ma non sono considerate come tali durante la costruzione della frequency_table
+  - [ ] nel file del professore la prima coppia di parola ha sempre come prima parola un "." nella mia versione non avviene (per ora e' in standby)
+---------------------------------------------------
+
+## DONE:
+- [x] fixato il caricamento per la frequency_table nel programma multiprocesso
+- [x] aggiunti print statements e debugging per errori comuni che possono accadere con l'esecuzion del programma
+- [x] fixare il fatto che durante la generazione delle parole soltanto 2 loop vengono eseguiti
+
+
 
 Cosa dicono le previsioni del tempo? Previsioni del tempo di oggi: tempo incerto! Previsioni di domani?
+
+

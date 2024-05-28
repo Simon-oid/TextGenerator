@@ -1,3 +1,4 @@
+// main.c
 #include <stdio.h>
 #include <stdlib.h>
 #include "frequency_table.h"
@@ -8,7 +9,7 @@
 void processTextAndGenerateFrequencyTable(WordRelation **wordRelations) {
     printf("Enter text to build frequency table:\n");
     char text[1024];
-    scanf(" %[^\n]", text);
+    scanf(" %[^\n]", text);  // Properly read a full line of input
 
     processText(text, wordRelations);
     writeCSV(*wordRelations, "output.csv");
@@ -41,7 +42,7 @@ int main() {
         printf("  4 - Multi-process version\n");
         printf("  0 - Exit\n");
         printf("Choose an option: ");
-        scanf("%d", &option);
+        scanf(" %d", &option);  // Add a space before %d
 
         switch (option) {
             case 0:
@@ -67,4 +68,3 @@ int main() {
     freeFrequencyTable(wordRelations);
     return 0;
 }
-

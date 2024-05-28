@@ -3,10 +3,15 @@
 #include <string.h>
 #include <ctype.h>
 #include "frequency_table.h"
+#include "shared.h"
 
 char *removePunctuation(const char *word) {
     int i, j = 0;
     char *output = malloc(strlen(word) + 1);
+    if (output == NULL) {
+        perror("Failed to allocate memory");
+        exit(EXIT_FAILURE);
+    }
     for (i = 0; i < strlen(word); i++) {
         if (isalpha(word[i]) || word[i] == '\'') {
             output[j++] = word[i];
@@ -18,6 +23,10 @@ char *removePunctuation(const char *word) {
 
 NextWordRelation *createNextWordRelation(const char *word) {
     NextWordRelation *newNode = malloc(sizeof(NextWordRelation));
+    if (newNode == NULL) {
+        perror("Failed to allocate memory");
+        exit(EXIT_FAILURE);
+    }
     strcpy(newNode->word, word);
     newNode->count = 1;
     newNode->next = NULL;
@@ -26,6 +35,10 @@ NextWordRelation *createNextWordRelation(const char *word) {
 
 WordRelation *createWordRelation(const char *word) {
     WordRelation *newNode = malloc(sizeof(WordRelation));
+    if (newNode == NULL) {
+        perror("Failed to allocate memory");
+        exit(EXIT_FAILURE);
+    }
     strcpy(newNode->word, word);
     newNode->totalNextWords = 0;
     newNode->nextWords = NULL;
@@ -158,7 +171,6 @@ void writeCSV(WordRelation *wordRelations, const char *filename) {
     fclose(file); // Properly close the file
 }
 
-
 void freeFrequencyTable(WordRelation *wordRelations) {
     WordRelation *currentWord = wordRelations;
     while (currentWord != NULL) {
@@ -172,4 +184,66 @@ void freeFrequencyTable(WordRelation *wordRelations) {
         currentWord = currentWord->next;
         free(tempWord);
     }
+}
+
+size_t serializeWordRelations(WordRelation *wordRelations, char *shm_ptr) {
+    size_t offset = 0;
+    WordRelation *current = wordRelations;
+    while (current != NULL) {
+        WordRelation *shm_wordRelation = (WordRelation *)(shm_ptr + offset);
+        // Copy the data of the WordRelation structure
+        memcpy(shm_wordRelation, current, sizeof(WordRelation));
+        offset += sizeof(WordRelation);
+
+        // Serialize the nextWords list
+        NextWordRelation *nextWord = current->nextWords;
+        while (nextWord != NULL) {
+            NextWordRelation *shm_nextWord = (NextWordRelation *)(shm_ptr + offset);
+            // Copy the data of the NextWordRelation structure
+            memcpy(shm_nextWord, nextWord, sizeof(NextWordRelation));
+            offset += sizeof(NextWordRelation);
+            nextWord = nextWord->next;
+        }
+
+        current = current->next;
+    }
+    return offset;
+}
+
+WordRelation *deserializeWordRelations(char *shm_ptr) {
+    size_t offset = 0;
+    WordRelation *wordRelations = NULL;
+    WordRelation *last = NULL;
+    while (offset < SHM_SIZE) {
+        WordRelation *shm_wordRelation = (WordRelation *)(shm_ptr + offset);
+        WordRelation *new_wordRelation = createWordRelation(shm_wordRelation->word);
+        // Copy the data of the WordRelation structure
+        memcpy(new_wordRelation, shm_wordRelation, sizeof(WordRelation));
+        offset += sizeof(WordRelation);
+
+        // Deserialize the nextWords list
+        NextWordRelation *lastNextWord = NULL;
+        while (offset < SHM_SIZE) {
+            NextWordRelation *shm_nextWord = (NextWordRelation *)(shm_ptr + offset);
+            NextWordRelation *new_nextWord = createNextWordRelation(shm_nextWord->word);
+            // Copy the data of the NextWordRelation structure
+            memcpy(new_nextWord, shm_nextWord, sizeof(NextWordRelation));
+            offset += sizeof(NextWordRelation);
+
+            if (lastNextWord == NULL) {
+                new_wordRelation->nextWords = new_nextWord;
+            } else {
+                lastNextWord->next = new_nextWord;
+            }
+            lastNextWord = new_nextWord;
+        }
+
+        if (last == NULL) {
+            wordRelations = new_wordRelation;
+        } else {
+            last->next = new_wordRelation;
+        }
+        last = new_wordRelation;
+    }
+    return wordRelations;
 }

@@ -16,6 +16,8 @@ add_executable(TextGenerator
         src/multi_process.c
         include/single_threaded.h
         include/multi_process.h
+        include/shared.h
+        include/multi_process_frequency_table.h
 )
 
 
