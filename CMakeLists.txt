@@ -5,7 +5,7 @@ project(TextGenerator)
 set(CMAKE_C_STANDARD 99)
 
 # Include directories
-include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(include)
 
 # Add executable
 add_executable(TextGenerator
@@ -18,6 +18,8 @@ add_executable(TextGenerator
         include/multi_process.h
         include/shared.h
         include/multi_process_frequency_table.h
+        include/frequency_table.h
+        include/text_generator.h
 )
 
 

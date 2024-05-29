@@ -173,16 +173,25 @@
 
 ### HIGH PRIO:
 
-  - [ ] fixare il modo in cui le parole vengono scelte dalla frequency_table, le parole devono essere scelte in base ad un numero randomico che va da 0 a 1, una volta scelto quel numero, si sceglie la parola con la frequenza piu' vicina a quel float. (al momento c'ho non avviene e sempre la stessa sequenza di parole viene scelta)
-  - [ ] fare in modo che il programma prenda come input un file txt e non una stringa di parole inserita dall'utente
-
+- [ ] verificare che le seguenti caratteristiche siano rispettate:
+  - [ ] le punteggiature ., ?, ! devono essere trattate come parole separate; gli apostrofi
+  fanno parte della parola; la rimanente punteggiatura può essere scartata. Vedere il
+  file allegato per alcuni esempi di testo di input e la corrispondente tabella;
+  - [ ] maiuscole/minuscole non hanno effetto: ad es., ‘oggi’= ‘Oggi’ = ’OGGI’ = etc.
+  - [ ] la prima parola del testo si intende preceduta dal carattere
+    punto . ;
+  - [ ] nel generare il testo casuale si può specificare una prima parola, altrimenti il
+    programma seleziona una punteggiatura a caso tra ., ?, ! (secondo la tabella di
+    input) e genera la parola successiva;
+  - [ ] nel generare il testo casuale la parola all’inizio di una frase (cioè la parola dopo un
+    punto ., ?, o !) deve avere l'iniziale maiuscola;
+  - [ ] si assuma che una parola sia lunga al massimo 30 caratteri stampabili.
+  - 
 ### LOW PRIO:
-- [x] reworkare il frequency_table.c:
-  - [ ] nel file output.csv le lettere maiuscole sono scritte come maiuscole ma non sono considerate come tali durante la costruzione della frequency_table
-  - [ ] nel file del professore la prima coppia di parola ha sempre come prima parola un "." nella mia versione non avviene (per ora e' in standby)
 ---------------------------------------------------
 
 ## DONE:
-
-
-
+- [x] fatto in modo che il programma prenda come input un file .txt
+- [x] fatto in modo che i pattern che si verificano prima non siano cosi' comuni quando generando una frase randomica
+- [x] aggiunto README.md 
+- [x] aggiunta compatibilita' con il `make` cosi' da poter eseguire il programma in console

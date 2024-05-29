@@ -6,17 +6,17 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <fcntl.h>
+#include <time.h>
+
 #include "multi_process_frequency_table.h"
 #include "text_generator.h"
 
-#define SHM_SIZE 1024 * 1024 // 1MB shared memory
+#define SHM_SIZE 1024 * 1024 * 10 // 10MB shared memory
 
 void create_frequency_table() {
     WordRelation *wordRelations = NULL;
-    char text[1024];
-    printf("Enter text to build frequency table:\n");
-    scanf(" %[^\n]", text);
-    processText(text, &wordRelations);
+    printf("Building frequency table from input.txt...\n");
+    processTextFromFile("input.txt", &wordRelations);
     writeCSV(wordRelations, "output.csv");
     freeFrequencyTable(wordRelations);
 }
@@ -65,6 +65,8 @@ void generate_text_from_frequency_table(int wordCount, char *shm_ptr_arg) {
         close(fd);
         exit(EXIT_FAILURE);
     }
+
+    srand(time(NULL) ^ (getpid()<<16)); // Seed the random number generator
 
     printWordRelations(wordRelations);  // Print the deserialized WordRelation linked list
 

@@ -1,4 +1,4 @@
-/home/simon/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/simon/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/ninja -G Ninja -S /home/simon/CLionProjects/TextGenerator -B /home/simon/CLionProjects/TextGenerator/cmake-build-debug
+/home/simon/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "Unix Makefiles" -S /home/simon/CLionProjects/TextGenerator -B /home/simon/CLionProjects/TextGenerator
 -- Configuring done (0.0s)
 -- Generating done (0.0s)
--- Build files have been written to: /home/simon/CLionProjects/TextGenerator/cmake-build-debug
+-- Build files have been written to: /home/simon/CLionProjects/TextGenerator

@@ -23,8 +23,8 @@ Inoltre è possibile scegliere di eseguire solo una delle due funzionalità del 
 
 ### Compilazione
 
-Per compilare il progetto è sufficiente eseguire il comando `make` da terminale. Verranno generati i file eseguibili necessary.
+Per compilare il progetto è sufficiente eseguire il comando `make` da terminale. Verranno generati i file eseguibili necessari.
 
 ### Esecuzione
 
-Per eseguire il progetto è sufficiente eseguire il comando `./main` da terminale. Verrà visualizzato un menu che permette all'utente di scegliere tra le varie funzionalità del progetto.
+Per eseguire il progetto è sufficiente eseguire il comando `./TextGenerator` da terminale. Verrà visualizzato un menu che permette all'utente di scegliere tra le varie funzionalità del progetto.

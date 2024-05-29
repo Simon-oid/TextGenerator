@@ -20,11 +20,9 @@ void loadFrequencyTableFromCSV(const char *filename, WordRelation **wordRelation
     while (fgets(line, sizeof(line), file) != NULL) {
         char *word = strtok(line, ",");
         char *nextWord = strtok(NULL, ",");
-
         float frequency = atof(strtok(NULL, ","));
 
         printf("Word: %s, Next word: %s, Frequency: %f\n", word, nextWord, frequency);
-
 
         WordRelation *current = *wordRelations;
         while (current != NULL && strcmp(current->word, word) != 0) {
@@ -47,6 +45,9 @@ void loadFrequencyTableFromCSV(const char *filename, WordRelation **wordRelation
             next->frequency = frequency;
             next->next = current->nextWords;
             current->nextWords = next;
+        } else {
+            // Update the frequency of the existing NextWordRelation
+            next->frequency = frequency;
         }
     }
 
@@ -54,26 +55,36 @@ void loadFrequencyTableFromCSV(const char *filename, WordRelation **wordRelation
 }
 
 char *getRandomNextWord(WordRelation *wordRelation) {
-    float totalFrequency = 0.0;
+    // Calculate the total frequency
+    float totalFrequency = 0.0f;
     NextWordRelation *currentNext = wordRelation->nextWords;
     while (currentNext != NULL) {
         totalFrequency += currentNext->frequency;
         currentNext = currentNext->next;
     }
 
-    float r = (float)rand() / RAND_MAX * totalFrequency;
-    float cumulativeProbability = 0.0;
+    // Generate a random number between 0 and the total frequency
+    float randomFrequency = ((float)rand()/(float)(RAND_MAX)) * totalFrequency;
+
+    // Find the word where the cumulative frequency is just greater than or equal to the random number
+    float cumulativeFrequency = 0.0f;
     currentNext = wordRelation->nextWords;
     while (currentNext != NULL) {
-        cumulativeProbability += currentNext->frequency;
-        if (r <= cumulativeProbability) {
+        cumulativeFrequency += currentNext->frequency;
+        if (cumulativeFrequency >= randomFrequency) {
             return currentNext->word;
         }
         currentNext = currentNext->next;
     }
-    return wordRelation->nextWords ? wordRelation->nextWords->word : NULL;
-}
 
+    // If no next word with non-zero frequency is found, return a random word
+    int randomIndex = rand() % wordRelation->totalNextWords;
+    currentNext = wordRelation->nextWords;
+    for (int i = 0; i < randomIndex; i++) {
+        currentNext = currentNext->next;
+    }
+    return currentNext->word;
+}
 WordRelation *getRandomStartingWord(WordRelation *wordRelations) {
     int count = 0;
     WordRelation *current = wordRelations;
@@ -108,21 +119,9 @@ void generateRandomText(WordRelation *wordRelations, int wordCount) {
 
     srand(time(NULL));
 
-    WordRelation *currentWord = wordRelations;
-    int totalWords = 0;
-    for (WordRelation *wr = wordRelations; wr != NULL; wr = wr->next) {
-        totalWords++;
-    }
-
+    WordRelation *currentWord = getRandomStartingWord(wordRelations);
     for (int i = 0; i < wordCount; i++) {
         printf("Iteration: %d\n", i);
-        if (currentWord == NULL) {
-            int randomIndex = rand() % totalWords;
-            currentWord = wordRelations;
-            for (int j = 0; j < randomIndex; j++) {
-                currentWord = currentWord->next;
-            }
-        }
 
         fprintf(file, "%s", currentWord->word);
         fflush(file);
@@ -137,7 +136,7 @@ void generateRandomText(WordRelation *wordRelations, int wordCount) {
         if (temp != NULL) {
             currentWord = temp;
         } else {
-            currentWord = wordRelations;
+            currentWord = getRandomStartingWord(wordRelations);
         }
 
         if (i < wordCount - 1) {

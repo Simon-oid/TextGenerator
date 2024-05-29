@@ -7,10 +7,8 @@ void singleThreadedVersion() {
     WordRelation *wordRelations = NULL;
 
     // Build frequency table
-    printf("Enter text to build frequency table:\n");
-    char text[1024];
-    scanf(" %[^\n]", text);
-    processText(text, &wordRelations);
+    printf("Building frequency table from input.txt...\n");
+    processTextFromFile("input.txt", &wordRelations);
     writeCSV(wordRelations, "output.csv");
     printf("Frequency table written to output.csv successfully.\n");
 
