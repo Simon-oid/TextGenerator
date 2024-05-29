@@ -186,6 +186,3 @@
 
 
 
-Cosa dicono le previsioni del tempo? Previsioni del tempo di oggi: tempo incerto! Previsioni di domani?
-
-

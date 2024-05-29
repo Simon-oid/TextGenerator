@@ -73,6 +73,25 @@ char *getRandomNextWord(WordRelation *wordRelation) {
     }
     return wordRelation->nextWords ? wordRelation->nextWords->word : NULL;
 }
+
+WordRelation *getRandomStartingWord(WordRelation *wordRelations) {
+    int count = 0;
+    WordRelation *current = wordRelations;
+    while (current != NULL) {
+        count++;
+        current = current->next;
+    }
+
+    int randomIndex = rand() % count;
+    current = wordRelations;
+    for (int i = 0; i < randomIndex; i++) {
+        current = current->next;
+    }
+
+    return current;
+}
+
+
 void generateRandomText(WordRelation *wordRelations, int wordCount) {
     if (wordRelations == NULL) {
         printf("The frequency table is empty.\n");

@@ -6,12 +6,12 @@
 #include "single_threaded.h"
 #include "multi_process.h"
 
-void processTextAndGenerateFrequencyTable(WordRelation **wordRelations) {
-    printf("Enter text to build frequency table:\n");
-    char text[1024];
-    scanf(" %[^\n]", text);  // Properly read a full line of input
+void processTextAndGenerateFrequencyTableFromFile(WordRelation **wordRelations) {
+    // char filename[256];
+    // printf("Enter filename of the text file to build frequency table:\n");
+    // scanf("%s", filename);
 
-    processText(text, wordRelations);
+    processTextFromFile("input.txt", wordRelations);
     writeCSV(*wordRelations, "output.csv");
     printf("Frequency table written to output.csv successfully.\n");
 }
@@ -49,7 +49,7 @@ int main() {
                 printf("Exiting...\n");
             break;
             case 1:
-                processTextAndGenerateFrequencyTable(&wordRelations);
+                processTextAndGenerateFrequencyTableFromFile(&wordRelations);
             break;
             case 2:
                 loadFrequencyTableAndGenerateText(&wordRelations);

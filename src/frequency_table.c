@@ -150,6 +150,24 @@ void processText(const char *text, WordRelation **wordRelations) {
     }
 }
 
+void processTextFromFile(const char *filename, WordRelation **wordRelations) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    char *text = NULL;
+    size_t len = 0;
+    ssize_t read;
+    while ((read = getline(&text, &len, file)) != -1) {
+        processText(text, wordRelations);
+    }
+
+    free(text);
+    fclose(file);
+}
+
 void writeCSV(WordRelation *wordRelations, const char *filename) {
     FILE *file = fopen(filename, "w");
     if (file == NULL) {

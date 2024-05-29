@@ -24,7 +24,7 @@ void addNextWordRelation(WordRelation *wordRelation, const char *nextWord);
 void processText(const char *text, WordRelation **wordRelations);
 void writeCSV(WordRelation *wordRelations, const char *filename);
 void freeFrequencyTable(WordRelation *wordRelations);
-
+void processTextFromFile(const char *filename, WordRelation **wordRelations);
 // Serialization functions
 size_t serializeWordRelations(WordRelation *wordRelations, char *shm_ptr);
 WordRelation* deserializeWordRelations(char *shm_ptr);
