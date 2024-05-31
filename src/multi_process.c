@@ -100,9 +100,9 @@ void multiProcessVersion() {
 
     // Process 1: Create frequency table
     if ((pid1 = fork()) == 0) {
-        printf("Process 1 (PID: %d) started\n", getpid());
+        // printf("Process 1 (PID: %d) started\n", getpid());
         create_frequency_table();
-        printf("Process 1 (PID: %d) completed\n", getpid());
+        // printf("Process 1 (PID: %d) completed\n", getpid());
 
 
         // Send signal to next process
@@ -121,10 +121,10 @@ void multiProcessVersion() {
 
     // Process 2: Load and serialize frequency table to shared memory
     if ((pid2 = fork()) == 0) {
-        printf("Process 2 (PID: %d) started\n", getpid());
+        // printf("Process 2 (PID: %d) started\n", getpid());
         load_and_serialize_frequency_table(shm_ptr, sem);
-        printf("Shared memory contents after Process 2: %s\n", shm_ptr);
-        printf("Process 2 (PID: %d) completed\n", getpid());
+        // printf("Shared memory contents after Process 2: %s\n", shm_ptr);
+        // printf("Process 2 (PID: %d) completed\n", getpid());
 
         // Send signal to next process
         close(pipe2[0]);
@@ -141,10 +141,10 @@ void multiProcessVersion() {
 
     // Process 3: Generate text from the serialized frequency table
     if ((pid3 = fork()) == 0) {
-        printf("Process 3 (PID: %d) started\n", getpid());
-        printf("Shared memory contents before Process 3: %s\n", shm_ptr);
+        // printf("Process 3 (PID: %d) started\n", getpid());
+        // printf("Shared memory contents before Process 3: %s\n", shm_ptr);
         generate_text_from_frequency_table(wordCount, shm_ptr, sem);
-        printf("Process 3 (PID: %d) completed\n", getpid());
+        // printf("Process 3 (PID: %d) completed\n", getpid());
         exit(EXIT_SUCCESS);
     }
     waitpid(pid3, &status, 0);
