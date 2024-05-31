@@ -34,4 +34,5 @@ CMakeFiles/TextGenerator.dir/src/single_threaded.c.o: \
  /usr/include/bits/stdlib-float.h \
  /home/simon/CLionProjects/TextGenerator/include/frequency_table.h \
  /home/simon/CLionProjects/TextGenerator/include/text_generator.h \
- /home/simon/CLionProjects/TextGenerator/include/frequency_table.h
+ /home/simon/CLionProjects/TextGenerator/include/frequency_table.h \
+ /home/simon/CLionProjects/TextGenerator/include/multi_process_frequency_table.h

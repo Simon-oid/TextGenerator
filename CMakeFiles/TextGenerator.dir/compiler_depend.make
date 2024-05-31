@@ -67,6 +67,7 @@ CMakeFiles/TextGenerator.dir/src/frequency_table.c.o: src/frequency_table.c \
 CMakeFiles/TextGenerator.dir/src/main.c.o: src/main.c \
   include/frequency_table.h \
   include/multi_process.h \
+  include/multi_process_frequency_table.h \
   include/single_threaded.h \
   include/text_generator.h \
   /usr/include/alloca.h \
@@ -152,6 +153,7 @@ CMakeFiles/TextGenerator.dir/src/multi_process.c.o: src/multi_process.c \
   /usr/include/bits/pthreadtypes-arch.h \
   /usr/include/bits/pthreadtypes.h \
   /usr/include/bits/select.h \
+  /usr/include/bits/semaphore.h \
   /usr/include/bits/sigaction.h \
   /usr/include/bits/sigcontext.h \
   /usr/include/bits/sigevent-consts.h \
@@ -215,6 +217,7 @@ CMakeFiles/TextGenerator.dir/src/multi_process.c.o: src/multi_process.c \
   /usr/include/features.h \
   /usr/include/gnu/stubs-64.h \
   /usr/include/gnu/stubs.h \
+  /usr/include/semaphore.h \
   /usr/include/signal.h \
   /usr/include/stdc-predef.h \
   /usr/include/stdio.h \
@@ -232,6 +235,7 @@ CMakeFiles/TextGenerator.dir/src/multi_process.c.o: src/multi_process.c \
 
 CMakeFiles/TextGenerator.dir/src/single_threaded.c.o: src/single_threaded.c \
   include/frequency_table.h \
+  include/multi_process_frequency_table.h \
   include/text_generator.h \
   /usr/include/alloca.h \
   /usr/include/bits/atomic_wide_counter.h \
@@ -290,6 +294,7 @@ CMakeFiles/TextGenerator.dir/src/single_threaded.c.o: src/single_threaded.c \
 
 CMakeFiles/TextGenerator.dir/src/text_generator.c.o: src/text_generator.c \
   include/frequency_table.h \
+  include/multi_process_frequency_table.h \
   include/text_generator.h \
   /usr/include/alloca.h \
   /usr/include/bits/atomic_wide_counter.h \
@@ -344,6 +349,7 @@ CMakeFiles/TextGenerator.dir/src/text_generator.c.o: src/text_generator.c \
   /usr/include/bits/waitflags.h \
   /usr/include/bits/waitstatus.h \
   /usr/include/bits/wordsize.h \
+  /usr/include/ctype.h \
   /usr/include/endian.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
@@ -421,6 +427,8 @@ src/single_threaded.c:
 
 /usr/include/bits/sigaction.h:
 
+/usr/include/bits/semaphore.h:
+
 /usr/include/bits/mman_ext.h:
 
 /usr/include/bits/types/sigset_t.h:
@@ -470,6 +478,8 @@ include/text_generator.h:
 src/frequency_table.c:
 
 /usr/include/strings.h:
+
+/usr/include/semaphore.h:
 
 /usr/include/bits/stat.h:
 

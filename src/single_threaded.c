@@ -3,16 +3,19 @@
 #include "frequency_table.h"
 #include "text_generator.h"
 
+// Function to run the single-threaded version of the program
 void singleThreadedVersion() {
+
+    // Initialize the head of the linked list of word relations to NULL
     WordRelation *wordRelations = NULL;
 
-    // Build frequency table
+    // Build the frequency table from the input text file
     printf("Building frequency table from input.txt...\n");
     processTextFromFile("input.txt", &wordRelations);
     writeCSV(wordRelations, "output.csv");
     printf("Frequency table written to output.csv successfully.\n");
 
-    // Load frequency table and generate random text
+    // Load the frequency table from the CSV file and generate random text
     loadFrequencyTableFromCSV("output.csv", &wordRelations);
 
     // Check if the frequency table is loaded successfully
@@ -22,10 +25,12 @@ void singleThreadedVersion() {
         return;
     }
 
+    // Ask the user for the number of words to generate
     printf("Enter number of words to generate:\n");
     int wordCount;
     scanf("%d", &wordCount);
     generateRandomText(wordRelations, wordCount);
 
+    // Free the memory used by the word relations
     freeFrequencyTable(wordRelations);
 }

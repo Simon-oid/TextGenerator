@@ -56,6 +56,8 @@ CMakeFiles/TextGenerator.dir/src/multi_process.c.o: \
  /usr/include/bits/types/struct_tm.h \
  /usr/include/bits/types/struct_itimerspec.h \
  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
+ /usr/include/semaphore.h /usr/include/bits/semaphore.h \
  /home/simon/CLionProjects/TextGenerator/include/multi_process_frequency_table.h \
  /home/simon/CLionProjects/TextGenerator/include/text_generator.h \
- /home/simon/CLionProjects/TextGenerator/include/frequency_table.h
+ /home/simon/CLionProjects/TextGenerator/include/frequency_table.h \
+ /home/simon/CLionProjects/TextGenerator/include/multi_process_frequency_table.h

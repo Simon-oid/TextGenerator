@@ -5,6 +5,8 @@
 #include "frequency_table.h"
 #include "shared.h"
 
+// Function to remove punctuation from a word
+// word: The word from which punctuation is to be removed
 char *removePunctuation(const char *word) {
     int i, j = 0;
     char *output = malloc(strlen(word) + 1);
@@ -21,6 +23,8 @@ char *removePunctuation(const char *word) {
     return output;
 }
 
+// Function to create a new next word relation
+// word: The word for which the next word relation is to be created
 NextWordRelation *createNextWordRelation(const char *word) {
     NextWordRelation *newNode = malloc(sizeof(NextWordRelation));
     if (newNode == NULL) {
@@ -33,6 +37,8 @@ NextWordRelation *createNextWordRelation(const char *word) {
     return newNode;
 }
 
+// Function to create a new word relation
+// word: The word for which the word relation is to be created
 WordRelation *createWordRelation(const char *word) {
     WordRelation *newNode = malloc(sizeof(WordRelation));
     if (newNode == NULL) {
@@ -46,6 +52,9 @@ WordRelation *createWordRelation(const char *word) {
     return newNode;
 }
 
+// Function to add a next word relation to a word relation
+// wordRelation: The word relation to which the next word relation is to be added
+// nextWord: The next word to be added to the word relation
 void addNextWordRelation(WordRelation *wordRelation, const char *nextWord) {
     NextWordRelation *current = wordRelation->nextWords;
     while (current != NULL) {
@@ -62,13 +71,16 @@ void addNextWordRelation(WordRelation *wordRelation, const char *nextWord) {
     wordRelation->totalNextWords++;
 }
 
+// Function to process a text and build word relations
+// text: The text to be processed
+// wordRelations: The word relations to be built from the text
 void processText(const char *text, WordRelation **wordRelations) {
     char word[MAX_WORD_LENGTH] = "";
     int wordLength = 0;
     WordRelation *lastRelation = NULL;
     for (int i = 0; i < strlen(text); i++) {
         if (isalpha(text[i]) || text[i] == '\'') {
-            word[wordLength++] = text[i]; // Keep the original case
+            word[wordLength++] = tolower(text[i]);  // Convert to lowercase
         } else if (text[i] == ' ' || text[i] == '.' || text[i] == ',' || text[i] == '!' || text[i] == '?' || text[i] == ';' || text[i] == '-') {
             if (wordLength > 0) {
                 word[wordLength] = '\0';
@@ -150,6 +162,9 @@ void processText(const char *text, WordRelation **wordRelations) {
     }
 }
 
+// Function to process a text file and build word relations
+// filename: The name of the file to be processed
+// wordRelations: The word relations to be built from the text file
 void processTextFromFile(const char *filename, WordRelation **wordRelations) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
@@ -168,6 +183,9 @@ void processTextFromFile(const char *filename, WordRelation **wordRelations) {
     fclose(file);
 }
 
+// Function to write the word relations to a CSV file
+// wordRelations: The word relations to be written to the CSV file
+// filename: The name of the CSV file
 void writeCSV(WordRelation *wordRelations, const char *filename) {
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
@@ -185,10 +203,12 @@ void writeCSV(WordRelation *wordRelations, const char *filename) {
         currentWord = currentWord->next;
     }
 
-    fflush(file); // Ensure all data is written to the file
-    fclose(file); // Properly close the file
+    fflush(file);
+    fclose(file);
 }
 
+// Function to free the memory used by the word relations
+// wordRelations: The word relations for which the memory is to be freed
 void freeFrequencyTable(WordRelation *wordRelations) {
     WordRelation *currentWord = wordRelations;
     while (currentWord != NULL) {
@@ -204,6 +224,9 @@ void freeFrequencyTable(WordRelation *wordRelations) {
     }
 }
 
+// Function to serialize word relations into shared memory
+// wordRelations: The word relations to be serialized
+// shm_ptr: The pointer to the shared memory
 size_t serializeWordRelations(WordRelation *wordRelations, char *shm_ptr) {
     size_t offset = 0;
     WordRelation *current = wordRelations;
@@ -228,6 +251,9 @@ size_t serializeWordRelations(WordRelation *wordRelations, char *shm_ptr) {
     return offset;
 }
 
+
+// Function to deserialize word relations from shared memory
+// shm_ptr: The pointer to the shared memory
 WordRelation *deserializeWordRelations(char *shm_ptr) {
     size_t offset = 0;
     WordRelation *wordRelations = NULL;

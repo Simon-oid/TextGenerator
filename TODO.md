@@ -168,7 +168,7 @@
 - [x] implementare il programma multi_process
 - [x] migliorato leggermente il modo in cui le parole vengono scelte dal metodo: getRandomNextWord() (e' ancora visibile un pattern, da fixare)
 
-- ===================== 29/05/24 ===================
+===================== 29/05/24 ===================
 ## TODO:
 
 ### HIGH PRIO:
@@ -195,3 +195,27 @@
 - [x] fatto in modo che i pattern che si verificano prima non siano cosi' comuni quando generando una frase randomica
 - [x] aggiunto README.md 
 - [x] aggiunta compatibilita' con il `make` cosi' da poter eseguire il programma in console
+
+===================== 31/05/24 ===================
+## TODO:
+
+### HIGH PRIO:
+
+
+### LOW PRIO:
+---------------------------------------------------
+
+## DONE:
+- [x] le punteggiature ., ?, ! devono essere trattate come parole separate; gli apostrofi
+  fanno parte della parola; la rimanente punteggiatura può essere scartata. Vedere il
+  file allegato per alcuni esempi di testo di input e la corrispondente tabella;
+- [x] maiuscole/minuscole non hanno effetto: ad es., ‘oggi’= ‘Oggi’ = ’OGGI’ = etc.
+- [x] la prima parola del testo si intende preceduta dal carattere
+  punto . ;
+- [x] nel generare il testo casuale si può specificare una prima parola, altrimenti il
+  programma seleziona una punteggiatura a caso tra ., ?, ! (secondo la tabella di
+  input) e genera la parola successiva;
+- [x] nel generare il testo casuale la parola all’inizio di una frase (cioè la parola dopo un
+  punto ., ?, o !) deve avere l'iniziale maiuscola;
+- [x] si assuma che una parola sia lunga al massimo 30 caratteri stampabili.
+  

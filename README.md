@@ -28,3 +28,4 @@ Per compilare il progetto è sufficiente eseguire il comando `make` da terminale
 ### Esecuzione
 
 Per eseguire il progetto è sufficiente eseguire il comando `./TextGenerator` da terminale. Verrà visualizzato un menu che permette all'utente di scegliere tra le varie funzionalità del progetto.
+Se si sceglie di generare il nuovo file di testo utilizzando la versione del programma multi-process e il programma non genera' un output, sara' necessario riavviare il programma fino a quando non verra' generato un nuovo output. (il programma funziona ma e' inconsistente)

@@ -39,7 +39,8 @@ CMakeFiles/TextGenerator.dir/src/text_generator.c.o: \
  /home/simon/CLionProjects/TextGenerator/include/frequency_table.h \
  /home/simon/CLionProjects/TextGenerator/include/text_generator.h \
  /home/simon/CLionProjects/TextGenerator/include/frequency_table.h \
- /usr/include/math.h /usr/include/bits/math-vector.h \
+ /home/simon/CLionProjects/TextGenerator/include/multi_process_frequency_table.h \
+ /usr/include/ctype.h /usr/include/math.h /usr/include/bits/math-vector.h \
  /usr/include/bits/libm-simd-decl-stubs.h \
  /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
  /usr/include/bits/fp-fast.h \

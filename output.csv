@@ -1,10 +1,10 @@
 domani,?,1.000000
-!,Previsioni,1.000000
+!,previsioni,1.000000
 incerto,!,1.000000
 oggi,tempo,1.000000
 di,domani,0.500000
 di,oggi,0.500000
-?,Previsioni,1.000000
+?,previsioni,1.000000
 tempo,incerto,0.333333
 tempo,di,0.333333
 tempo,?,0.333333
@@ -13,4 +13,4 @@ previsioni,di,0.333333
 previsioni,del,0.666667
 le,previsioni,1.000000
 dicono,le,1.000000
-Cosa,dicono,1.000000
+cosa,dicono,1.000000

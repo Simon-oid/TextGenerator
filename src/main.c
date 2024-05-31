@@ -6,16 +6,16 @@
 #include "single_threaded.h"
 #include "multi_process.h"
 
+// Function to process a text file and generate a frequency table from it
+// wordRelations: Pointer to the head of the linked list of word relations
 void processTextAndGenerateFrequencyTableFromFile(WordRelation **wordRelations) {
-    // char filename[256];
-    // printf("Enter filename of the text file to build frequency table:\n");
-    // scanf("%s", filename);
-
     processTextFromFile("input.txt", wordRelations);
     writeCSV(*wordRelations, "output.csv");
     printf("Frequency table written to output.csv successfully.\n");
 }
 
+// Function to load a frequency table from a CSV file and generate random text based on it
+// wordRelations: Pointer to the head of the linked list of word relations
 void loadFrequencyTableAndGenerateText(WordRelation **wordRelations) {
     loadFrequencyTableFromCSV("output.csv", wordRelations);
 
@@ -30,6 +30,7 @@ void loadFrequencyTableAndGenerateText(WordRelation **wordRelations) {
     generateRandomText(*wordRelations, wordCount);
 }
 
+// The main function
 int main() {
     int option;
     WordRelation *wordRelations = NULL;
