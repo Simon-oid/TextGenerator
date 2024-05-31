@@ -218,4 +218,5 @@
 - [x] nel generare il testo casuale la parola all’inizio di una frase (cioè la parola dopo un
   punto ., ?, o !) deve avere l'iniziale maiuscola;
 - [x] si assuma che una parola sia lunga al massimo 30 caratteri stampabili.
-  
+- [x] fixati i leak alla memoria nel programma multiprocess
+- [x] fixato il caso in cui il programma multiprocess falliva per via di una race condition

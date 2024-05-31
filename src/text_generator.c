@@ -68,6 +68,7 @@ WordRelation *getRandomStartingWord(WordRelation *wordRelations) {
     }
 
     int randomIndex = rand() % count;
+
     current = wordRelations;
     for (int i = 0; i < randomIndex; i++) {
         current = current->next;
@@ -130,9 +131,6 @@ void generateRandomText(WordRelation *wordRelations, int wordCount) {
     WordRelation *currentWord = getRandomStartingWord(wordRelations);
     for (int i = 0; i < wordCount; i++) {
         char *nextWord = getRandomNextWord(currentWord);  // Pass currentWord
-
-        printf("Current word: %s, Next word: %s\n", currentWord->word, nextWord);
-
 
         fprintf(file, "%s", nextWord);  // Write nextWord to the file
 

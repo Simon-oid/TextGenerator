@@ -86,24 +86,27 @@ void processText(const char *text, WordRelation **wordRelations) {
                 word[wordLength] = '\0';
                 char *cleanWord = removePunctuation(word);
 
-                if (lastRelation != NULL) {
-                    addNextWordRelation(lastRelation, cleanWord);
-                }
-
-                WordRelation *current = *wordRelations;
-                while (current != NULL) {
-                    if (strcasecmp(current->word, cleanWord) == 0) {
-                        lastRelation = current;
-                        break;
+                // Ignore words that are empty or only contain punctuation
+                if (strlen(cleanWord) > 0 && isalpha(cleanWord[0])) {
+                    if (lastRelation != NULL) {
+                        addNextWordRelation(lastRelation, cleanWord);
                     }
-                    current = current->next;
-                }
 
-                if (current == NULL) {
-                    WordRelation *newRelation = createWordRelation(cleanWord);
-                    newRelation->next = *wordRelations;
-                    *wordRelations = newRelation;
-                    lastRelation = newRelation;
+                    WordRelation *current = *wordRelations;
+                    while (current != NULL) {
+                        if (strcasecmp(current->word, cleanWord) == 0) {
+                            lastRelation = current;
+                            break;
+                        }
+                        current = current->next;
+                    }
+
+                    if (current == NULL) {
+                        WordRelation *newRelation = createWordRelation(cleanWord);
+                        newRelation->next = *wordRelations;
+                        *wordRelations = newRelation;
+                        lastRelation = newRelation;
+                    }
                 }
 
                 free(cleanWord);
@@ -139,23 +142,25 @@ void processText(const char *text, WordRelation **wordRelations) {
     if (wordLength > 0) {
         word[wordLength] = '\0';
         char *cleanWord = removePunctuation(word);
-        if (lastRelation != NULL) {
-            addNextWordRelation(lastRelation, cleanWord);
-        }
-
-        WordRelation *current = *wordRelations;
-        while (current != NULL) {
-            if (strcasecmp(current->word, cleanWord) == 0) {
-                lastRelation = current;
-                break;
+        if (strlen(cleanWord) > 0 && isalpha(cleanWord[0])) {
+            if (lastRelation != NULL) {
+                addNextWordRelation(lastRelation, cleanWord);
             }
-            current = current->next;
-        }
 
-        if (current == NULL) {
-            WordRelation *newRelation = createWordRelation(cleanWord);
-            newRelation->next = *wordRelations;
-            *wordRelations = newRelation;
+            WordRelation *current = *wordRelations;
+            while (current != NULL) {
+                if (strcasecmp(current->word, cleanWord) == 0) {
+                    lastRelation = current;
+                    break;
+                }
+                current = current->next;
+            }
+
+            if (current == NULL) {
+                WordRelation *newRelation = createWordRelation(cleanWord);
+                newRelation->next = *wordRelations;
+                *wordRelations = newRelation;
+            }
         }
 
         free(cleanWord);
@@ -224,6 +229,18 @@ void freeFrequencyTable(WordRelation *wordRelations) {
     }
 }
 
+// Function to print word relations
+void printWordRelations(WordRelation *wordRelations) {
+    WordRelation *currentWord = wordRelations;
+    while (currentWord != NULL) {
+        NextWordRelation *currentNext = currentWord->nextWords;
+        while (currentNext != NULL) {
+            currentNext = currentNext->next;
+        }
+        currentWord = currentWord->next;
+    }
+}
+
 // Function to serialize word relations into shared memory
 // wordRelations: The word relations to be serialized
 // shm_ptr: The pointer to the shared memory
@@ -251,7 +268,8 @@ size_t serializeWordRelations(WordRelation *wordRelations, char *shm_ptr) {
     return offset;
 }
 
-
+// Function to deserialize word relations from shared memory
+// shm_ptr: The pointer to the shared memory
 // Function to deserialize word relations from shared memory
 // shm_ptr: The pointer to the shared memory
 WordRelation *deserializeWordRelations(char *shm_ptr) {
@@ -292,5 +310,6 @@ WordRelation *deserializeWordRelations(char *shm_ptr) {
         }
         last = new_wordRelation;
     }
+
     return wordRelations;
 }

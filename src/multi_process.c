@@ -10,7 +10,7 @@
 #include "multi_process_frequency_table.h"
 #include "text_generator.h"
 
-#define SHM_SIZE 1024 * 1024 * 10 // 10MB shared memory
+#define SHM_SIZE 1024 * 1024 // 1MB shared memory
 #define SEM_NAME "/freq_sem"
 
 // Function to create a frequency table from the input text file
@@ -34,6 +34,9 @@ void load_and_serialize_frequency_table(char *shm_ptr, sem_t *sem) {
 
     // Unlock semaphore
     sem_post(sem);
+
+    // Free the memory used by the word relations
+    freeFrequencyTable(wordRelations);
 }
 
 // Function to generate text from the frequency table stored in shared memory
